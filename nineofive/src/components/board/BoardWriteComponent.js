@@ -21,26 +21,28 @@ export default function BoardWriteComponent({
           name="title"
           value={content.title}
         />
+        <CKEditor
+          editor={ClassicEditor}
+          data="content"
+          onReady={(editor) => {
+            console.log("Editor is ready to use!", editor);
+          }}
+          onChange={(event, editor) => {
+            changeContent(event, editor);
+          }}
+          onBlur={(event, editor) => {
+            console.log("Blur.", editor);
+          }}
+          onFocus={(event, editor) => {
+            console.log("Focus", editor);
+          }}
+        />
         <Input
           type="text"
           placeholder="글쓴이"
           onChange={getValue}
           name="writer"
           value={content.writer}
-        />
-        <CKEditor
-          editor={ClassicEditor}
-          data="content"
-          onReady={(editor) => {}}
-          onChange={(event, editor) => {
-            changeContent(event, editor);
-          }}
-          // onBlur={(event, editor) => {
-          //   console.log("Blur.", editor);
-          // }}
-          // onFocus={(event, editor) => {
-          //   console.log("Focus", editor);
-          // }}
         />
       </div>
       <Button onClick={submitContent}>작성</Button>
