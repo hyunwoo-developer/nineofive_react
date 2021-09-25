@@ -2,6 +2,49 @@ import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import { baseURL } from "../home/HomeContainer";
 import { getAllData } from "./TodosContainer";
+import styled from "styled-components";
+import { FaMinusCircle } from "react-icons/fa";
+const TodoList = styled.li`
+    padding: 20px;
+    background-color: aliceblue;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #aaaaaa;
+`;
+
+const CheckBox = styled.input`
+    margin-right: 10px;
+`;
+
+const TodoMark = styled.mark`
+    width: 100%;
+    height: 40px;
+    line-height: 33px;
+    background-color: transparent;
+    border-radius: 4px;
+    border: 2px solid #aaaaaa;
+`;
+
+const TodoEdit = styled.input`
+    width: 100%;
+    height: 40px;
+    line-height: 33px;
+    background-color: transparent;
+    border-radius: 4px;
+    border: 2px solid #aaaaaa;
+`;
+
+const DeleteBtn = styled.button`
+    border: 2px solid #aaaaaa;
+    border-radius: 4px;
+    background-color: #db552c;
+    margin-left: 10px;
+    height: 40px;
+    width: 40px;
+    &:hover {
+        background-color: #fc7723;
+    }
+`;
 
 function TodosList({ todo, removeTodo, setTodoArray }) {
     const editInputRef = useRef(null);
@@ -59,8 +102,8 @@ function TodosList({ todo, removeTodo, setTodoArray }) {
     };
 
     return (
-        <li>
-            <input
+        <TodoList>
+            <CheckBox
                 type="checkbox"
                 checked={todo.checked}
                 onChange={() => {
@@ -68,7 +111,7 @@ function TodosList({ todo, removeTodo, setTodoArray }) {
                 }}
             />
             {edited ? (
-                <input
+                <TodoEdit
                     ref={editInputRef}
                     value={newText}
                     onChange={onChangeEditInput}
@@ -79,17 +122,17 @@ function TodosList({ todo, removeTodo, setTodoArray }) {
                     }}
                 />
             ) : (
-                <mark onClick={onClickEdit}>{todo.content}</mark>
+                <TodoMark onClick={onClickEdit}>{todo.content}</TodoMark>
             )}
-            <button
+            <DeleteBtn
                 type="button"
                 onClick={function () {
                     return removeTodo(todo.todosIdx);
                 }}
             >
-                <img src="header_add.svg" alt="" />
-            </button>
-        </li>
+                <FaMinusCircle />
+            </DeleteBtn>
+        </TodoList>
     );
 }
 
