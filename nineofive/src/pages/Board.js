@@ -5,7 +5,7 @@ import WriteBoard from "../containers/board/WriteBoard";
 // import EditBoard from "../containers/board/EditBoard";
 import styled from "styled-components";
 const Div = styled.div`
-  max-width: 40rem;
+  max-width: 55rem;
   margin: 4rem auto;
 `;
 
