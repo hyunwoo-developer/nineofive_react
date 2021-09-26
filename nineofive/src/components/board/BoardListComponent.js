@@ -33,7 +33,7 @@ const Button = styled.button`
   border: none;
   border-radius: 4px;
   color: #000;
-  background: #fff;
+  background: transparent;
   cursor: pointer;
   font-weight: bold;
   padding-left: 1rem;
@@ -76,20 +76,8 @@ export default function BoardListComponent({
               <Td>{element.content}</Td>
               <Td>{element.writer}</Td>
               <Td>{element.writeTime}</Td>
-              {/* <Td>
-              <Link
-                className="btn btn-primary"
-                to="/board/edit/1"
-                onClick={() => {
-                  getIdx(element.boardIdx);
-                }}
-              >
-                수정
-              </Link>
-            </Td> */}
               <Td>
                 <Button
-                  // className="btn btn-danger"
                   onClick={() => {
                     removeContent(element.boardIdx);
                   }}
