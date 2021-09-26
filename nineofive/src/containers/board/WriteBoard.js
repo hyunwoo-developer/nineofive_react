@@ -13,7 +13,7 @@ export const getAllBoard = async () => {
 };
 
 export default function WriteBoard() {
-  const [content, setContent] = useState({
+  const [text, setText] = useState({
     title: "",
     content: "",
     writer: "",
@@ -23,40 +23,36 @@ export default function WriteBoard() {
 
   const getValue = (event) => {
     const { name, value } = event.target;
-    setContent({
-      ...content,
+    setText({
+      ...text,
       [name]: value,
     });
   };
 
-  const changeContent = (event, editor) => {
-    const data = editor.getData();
-    setContent({
-      ...content,
-      content: data,
+  const changeContent = (value) => {
+    setText({
+      ...text,
+      content: value,
     });
   };
 
-  const submitContent = async () => {
+  const submitContent = async (event) => {
     try {
-      // const newContent = {
-      //   title: "",
-      //   content: "",
-      //   writer: "",
-      // };
       const response = await axios({
         method: "POST",
         url: `${baseURL}/board`,
-        data: content,
+        data: text,
       });
       if (response.status === 200) {
         const result = await getAllBoard();
         setViewContent(result);
-        setContent({
+        setText({
           title: "",
           content: "",
           writer: "",
         });
+        console.log("글작성 성공");
+        document.location.href = "/board";
       }
     } catch (error) {
       console.error(error);
@@ -65,7 +61,8 @@ export default function WriteBoard() {
 
   return (
     <BoardWriteComponent
-      content={content}
+      text={text}
+      setText={setText}
       getValue={getValue}
       changeContent={changeContent}
       submitContent={submitContent}
